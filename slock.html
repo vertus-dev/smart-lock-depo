@@ -1,1112 +1,369 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sıddık Demir Anadolu Lisesi - Duyuru Sistemi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>🔐 Vertus Şifre Çözücü</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e6e6e6;
-            min-height: 100vh;
+            margin: 0;
+            background: #070f1f url('wallpaper.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #e9f2fb;
+            font-family: "Inter", system-ui, sans-serif;
             display: flex;
             flex-direction: column;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            width: 100%;
-            height: 100vh;
-            background-color: rgba(30, 30, 46, 0.9);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: linear-gradient(90deg, #0f3460 0%, #1a1a2e 100%);
-            padding: 20px 40px;
-            border-bottom: 2px solid #0f3460;
-            display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-
-        .school-logo, .logo {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 5px;
-        }
-
-        .header-center {
-            flex: 1;
-            padding: 0 30px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 5px;
-            color: #4fc3f7;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: #bbbbbb;
-            letter-spacing: 1px;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 40px;
-            overflow: hidden;
-        }
-
-        .class-selector-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-
-        .class-selector {
-            display: flex;
-            background: rgba(40, 40, 60, 0.7);
-            border-radius: 50px;
-            padding: 8px;
-            border: 1px solid #0f3460;
-            overflow-x: auto;
-            max-width: 100%;
-        }
-
-        .class-option {
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            margin: 0 8px;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .class-option:hover {
-            background: rgba(79, 195, 247, 0.2);
-        }
-
-        .class-option.active {
-            background: #0f3460;
-            color: white;
-        }
-
-        .class-display {
-            background: rgba(40, 40, 60, 0.7);
-            border-radius: 50px;
-            padding: 15px 35px;
-            border: 1px solid #0f3460;
-            font-weight: 600;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .class-display:hover {
-            background: rgba(79, 195, 247, 0.1);
-        }
-
-        .announcements-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            background: rgba(25, 25, 35, 0.6);
-            border-radius: 15px;
-            border: 1px solid #0f3460;
+            min-height: 100vh;
             padding: 20px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #4fc3f7;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0f3460;
-            flex-shrink: 0;
-        }
-
-        .announcements-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        /* Scrollbar stil */
-        .announcements-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .announcements-list::-webkit-scrollbar-track {
-            background: rgba(30, 30, 46, 0.5);
-            border-radius: 4px;
-        }
-
-        .announcements-list::-webkit-scrollbar-thumb {
-            background: #0f3460;
-            border-radius: 4px;
-        }
-
-        .announcements-list::-webkit-scrollbar-thumb:hover {
-            background: #1a5089;
-        }
-
-        .announcement-card {
-            background: linear-gradient(135deg, rgba(40, 40, 60, 0.9) 0%, rgba(30, 30, 50, 0.9) 100%);
-            border-left: 5px solid #0f3460;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
         }
-
-        .announcement-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            border-left-color: #4fc3f7;
-        }
-
-        .announcement-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 16px;
-            color: #bbbbbb;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .announcement-class {
-            background: linear-gradient(90deg, #0f3460, #1a5089);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .announcement-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #e6e6e6;
-            padding-right: 45px;
-            line-height: 1.3;
-        }
-
-        .announcement-content {
-            line-height: 1.7;
-            font-size: 17px;
-            margin-bottom: 18px;
-            padding: 18px;
-            background: rgba(30, 30, 46, 0.5);
-            border-radius: 10px;
-            border-left: 3px solid #0f3460;
-        }
-
-        .announcement-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 18px;
-            font-size: 15px;
-            color: #888888;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .announcement-author {
-            font-weight: 600;
-            color: #4fc3f7;
-        }
-
-        .delete-announcement {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(211, 47, 47, 0.2);
-            border: none;
-            border-radius: 6px;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #f44336;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-
-        .announcement-card:hover .delete-announcement {
-            opacity: 1;
-        }
-
-        .delete-announcement:hover {
-            background: rgba(211, 47, 47, 0.4);
-            transform: scale(1.1);
-        }
-
-        .no-announcements {
-            text-align: center;
-            padding: 60px 40px;
-            color: #888888;
-            font-style: italic;
-            background: rgba(40, 40, 60, 0.5);
-            border-radius: 12px;
-            border: 2px dashed #0f3460;
-            font-size: 18px;
-        }
-
-        .auto-refresh-info {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #888888;
-            font-style: italic;
-            flex-shrink: 0;
-        }
-
-        /* Modal Stilleri */
-        .modal {
-            display: none;
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+            background: rgba(7, 15, 31, 0.85);
+            z-index: -1;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+            background: linear-gradient(90deg, #06b6d4, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            background: #000;
+            margin-top: 10px;
+            border: 2px solid #06b6d4;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+        input[type="file"],
+        input[type="text"] {
+            margin-top: 12px;
+            background: rgba(14, 26, 51, 0.9);
+            border: 2px solid #06b6d4;
+            color: #e9f2fb;
+            padding: 12px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 350px;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        input[type="text"]::placeholder {
+            color: #9eb0c8;
+        }
+        input:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+        button {
+            margin-top: 12px;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #06b6d4, #7c3aed);
+            color: #021224;
+            font-weight: 700;
+            font-size: 16px;
+            width: 90%;
+            max-width: 350px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .stop-btn {
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+        .stop-btn:hover {
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+        }
+        .result {
+            margin: 30px 0;
+            font-size: 36px;
+            letter-spacing: 4px;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(90deg, #06b6d4, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 16px;
+            background-color: rgba(14, 26, 51, 0.9);
+            border: 2px solid #06b6d4;
+            min-width: 250px;
+            backdrop-filter: blur(10px);
+        }
+        .hint {
+            margin-top: 8px;
+            color: #9eb0c8;
+            font-size: 14px;
+            text-align: center;
+            background: rgba(14, 26, 51, 0.7);
+            padding: 8px 12px;
+            border-radius: 8px;
             backdrop-filter: blur(5px);
         }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            width: 90%;
-            max-width: 600px;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            border: 1px solid #0f3460;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #0f3460;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            color: #4fc3f7;
+        .error {
+            color: #ff6b6b;
+            font-size: 16px;
             font-weight: 700;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: #bbbbbb;
-            font-size: 28px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .close-modal:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            border: 1px solid #0f3460;
-            background-color: #1e1e2e;
-            color: #e6e6e6;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #4fc3f7;
-            box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.3);
-        }
-
-        textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        button {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, #0f3460, #1a5089);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(90deg, #1a5089, #0f3460);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(15, 52, 96, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(90deg, #33334d, #444466);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: linear-gradient(90deg, #444466, #33334d);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(51, 51, 77, 0.4);
-        }
-
-        .btn-logout {
-            background: linear-gradient(90deg, #d32f2f, #f44336);
-            color: white;
-        }
-
-        .btn-logout:hover {
-            background: linear-gradient(90deg, #f44336, #d32f2f);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
-        }
-
-        .btn-danger {
-            background: linear-gradient(90deg, #d32f2f, #f44336);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: linear-gradient(90deg, #f44336, #d32f2f);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
-        }
-
-        footer {
             text-align: center;
-            padding: 15px;
-            font-size: 14px;
-            color: #888888;
-            background: rgba(25, 25, 35, 0.8);
-            border-top: 1px solid #0f3460;
-            flex-shrink: 0;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 18px 25px;
-            background: linear-gradient(90deg, #0f3460, #1a5089);
-            color: white;
+            margin-top: 15px;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 12px;
             border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            transform: translateX(150%);
-            transition: transform 0.4s ease;
-            z-index: 1001;
-            font-weight: 600;
+            border: 1px solid #ff6b6b;
+            backdrop-filter: blur(5px);
+        }
+        .section {
+            border: 2px solid #06b6d4;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 95%;
+            max-width: 420px;
+            background: rgba(14, 26, 51, 0.85);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .section h3 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #06b6d4;
+            text-align: center;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
             max-width: 350px;
         }
-
-        .notification.show {
-            transform: translateX(0);
+        .button-group button {
+            flex: 1;
+            margin-top: 12px;
         }
-
-        .notification.error {
-            background: linear-gradient(90deg, #d32f2f, #f44336);
-        }
-
-        .admin-indicator {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(90deg, #0f3460, #1a5089);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 998;
+        canvas {
             display: none;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .school-logo, .logo {
-                width: 50px;
-                height: 50px;
-                margin: 5px 0;
-            }
-
-            .header-center {
-                padding: 10px 0;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            .main-content {
-                padding: 15px 20px;
-            }
-
-            .class-option {
-                padding: 10px 18px;
-                font-size: 14px;
-            }
-
-            .class-display {
-                padding: 12px 25px;
-                font-size: 16px;
-            }
-
-            .announcement-card {
-                padding: 20px;
-            }
-
-            .announcement-title {
-                font-size: 20px;
-            }
-
-            .delete-announcement {
-                opacity: 1;
-            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <img src="okul.png" alt="Okul Logosu" class="school-logo" onerror="this.style.display='none'">
-        <div class="header-center">
-            <h1>Sıddık Demir Anadolu Lisesi</h1>
-            <div class="subtitle">Duyuru Paneli - Gerçek Zamanlı Güncelleme</div>
-        </div>
-        <img src="logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-    </header>
+<h1>🔐 Vertus Şifre Çözücü</h1>
 
-    <div class="main-content">
-        <div class="class-selector-container">
-            <div id="classDisplay" class="class-display">12-C</div>
-            <div id="classSelector" class="class-selector" style="display: none;">
-                <div class="class-option" data-class="9a">9-A</div>
-                <div class="class-option" data-class="9b">9-B</div>
-                <div class="class-option" data-class="9c">9-C</div>
-                <div class="class-option" data-class="10a">10-A</div>
-                <div class="class-option" data-class="10b">10-B</div>
-                <div class="class-option" data-class="10c">10-C</div>
-                <div class="class-option" data-class="11a">11-A</div>
-                <div class="class-option" data-class="11b">11-B</div>
-                <div class="class-option" data-class="11c">11-C</div>
-                <div class="class-option" data-class="12a">12-A</div>
-                <div class="class-option" data-class="12b">12-B</div>
-                <div class="class-option active" data-class="12c">12-C</div>
-            </div>
-        </div>
+<!-- Sonuç -->
+<div id="result" class="result">—</div>
 
-        <div class="announcements-container">
-            <h2 class="section-title">Sınıf Duyuruları</h2>
-            <div class="announcements-list" id="announcementsList">
-                <div class="no-announcements">12-C sınıfına ait duyurular yükleniyor...</div>
-            </div>
-            <div class="auto-refresh-info">Duyurular otomatik olarak güncellenmektedir</div>
-        </div>
+<!-- QR Kod Okuma -->
+<div class="section">
+    <h3>📸 QR Kod ile Çöz</h3>
+    <video id="video" playsinline></video>
+    <div class="button-group">
+        <button id="startBtn">Kamerayı Aç</button>
+        <button id="stopBtn" class="stop-btn" disabled>Kamerayı Kapat</button>
     </div>
-
-    <footer>
-        &copy; 2025 Sıddık Demir Anadolu Lisesi - Tüm hakları saklıdır. |
-        Ctrl+Shift+A ile yönetici girişi/çıkışı |
-        Ctrl+Shift+D ile duyuru ekleme |
-        Ctrl+Shift+X ile tüm duyuruları temizleme
-    </footer>
+    <input type="file" id="fileInput" accept="image/*">
+    <div id="qrHint" class="hint">QR kodu kameraya göster veya fotoğraf yükle.</div>
 </div>
 
-<!-- Modal'lar aynı şekilde kalacak -->
-<!-- Yönetici Giriş Modalı -->
-<div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title" id="adminModalTitle">Yönetici Girişi</h2>
-            <button class="close-modal" onclick="closeAdminModal()">&times;</button>
-        </div>
-        <form id="adminLoginForm">
-            <div id="loginFormContent">
-                <div class="form-group">
-                    <label for="username">Kullanıcı Adı:</label>
-                    <input type="text" id="username" placeholder="Kullanıcı adınızı girin" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="password">Şifre:</label>
-                    <input type="password" id="password" placeholder="Şifrenizi girin" autocomplete="off">
-                </div>
-            </div>
-            <div class="btn-group" id="loginButtons">
-                <button type="submit" class="btn-primary">Giriş Yap</button>
-                <button type="button" class="btn-secondary" onclick="closeAdminModal()">İptal</button>
-            </div>
-            <div class="btn-group" id="logoutButtons" style="display: none;">
-                <button type="button" class="btn-logout" onclick="logout()">Çıkış Yap</button>
-                <button type="button" class="btn-secondary" onclick="closeAdminModal()">İptal</button>
-            </div>
-        </form>
-    </div>
+<!-- Manuel Giriş -->
+<div class="section">
+    <h3>🔢 Manuel Giriş</h3>
+    <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı gir" maxlength="6">
+    <button id="decodeManual">Deşifre Et</button>
 </div>
 
-<!-- Duyuru Ekleme Modalı -->
-<div class="modal" id="addAnnouncementModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title">Yeni Duyuru Ekle</h2>
-            <button class="close-modal" onclick="closeAddModal()">&times;</button>
-        </div>
-        <form id="addAnnouncementForm">
-            <div class="form-group">
-                <label for="targetClass">Hedef Sınıf:</label>
-                <select id="targetClass">
-                    <option value="all">Tüm Sınıflar</option>
-                    <option value="9a">9-A Sınıfı</option>
-                    <option value="9b">9-B Sınıfı</option>
-                    <option value="9c">9-C Sınıfı</option>
-                    <option value="10a">10-A Sınıfı</option>
-                    <option value="10b">10-B Sınıfı</option>
-                    <option value="10c">10-C Sınıfı</option>
-                    <option value="11a">11-A Sınıfı</option>
-                    <option value="11b">11-B Sınıfı</option>
-                    <option value="11c">11-C Sınıfı</option>
-                    <option value="12a">12-A Sınıfı</option>
-                    <option value="12b">12-B Sınıfı</option>
-                    <option value="12c">12-C Sınıfı</option>
-                </select>
-            </div>
+<div id="error" class="error"></div>
 
-            <div class="form-group">
-                <label for="authorPosition">Mevki:</label>
-                <select id="authorPosition">
-                    <option value="Öğretmen">Öğretmen</option>
-                    <option value="Bilgisayar Öğretmeni">Bilgisayar Öğretmeni</option>
-                    <option value="Uyg. Geliştiricisi">Uyg. Geliştiricisi</option>
-                    <option value="Müdür Yardımcısı">Müdür Yardımcısı</option>
-                    <option value="Müdür">Müdür</option>
-                </select>
-            </div>
+<canvas id="canvas"></canvas>
 
-            <div class="form-group">
-                <label for="authorName">Adınız ve Soyadınız:</label>
-                <input type="text" id="authorName" placeholder="Adınız ve soyadınızı girin">
-            </div>
-
-            <div class="form-group">
-                <label for="announcementTitle">Duyuru Başlığı:</label>
-                <input type="text" id="announcementTitle" placeholder="Duyuru başlığını girin">
-            </div>
-
-            <div class="form-group">
-                <label for="announcementText">Duyuru Metni:</label>
-                <textarea id="announcementText" placeholder="Duyurunuzu buraya yazın..."></textarea>
-            </div>
-
-            <div class="btn-group">
-                <button type="submit" class="btn-primary">Duyuruyu Yayınla</button>
-                <button type="button" class="btn-secondary" onclick="closeAddModal()">İptal</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Tüm Duyuruları Temizleme Modalı -->
-<div class="modal" id="clearAllModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title">Tüm Duyuruları Temizle</h2>
-            <button class="close-modal" onclick="closeClearModal()">&times;</button>
-        </div>
-        <div class="form-group">
-            <p style="text-align: center; margin-bottom: 20px; font-size: 16px; color: #ff6b6b;">
-                <strong>⚠️ UYARI!</strong><br>
-                Tüm sınıflardaki tüm duyurular kalıcı olarak silinecektir. Bu işlem geri alınamaz!
-            </p>
-            <p style="text-align: center; margin-bottom: 20px;">
-                Emin misiniz?
-            </p>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn-danger" onclick="clearAllAnnouncements()">Evet, Tümünü Sil</button>
-            <button type="button" class="btn-secondary" onclick="closeClearModal()">İptal</button>
-        </div>
-    </div>
-</div>
-
-<!-- Yönetici Göstergesi -->
-<div class="admin-indicator" id="adminIndicator">Yönetici Modu</div>
-
-<!-- Bildirim -->
-<div class="notification" id="notification"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 <script>
-    // JavaScript kodu tamamen aynı kalacak, sadece container yapısı değişti
-    // Global değişkenler
-    let isAdminLoggedIn = false;
-    let currentClass = '12c';
-    let autoRefreshInterval;
-    let lastAnnouncementCount = 0;
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const resultEl = document.getElementById("result");
+    const errorEl = document.getElementById("error");
+    const qrHint = document.getElementById("qrHint");
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const fileInput = document.getElementById("fileInput");
+    const manualInput = document.getElementById("manualInput");
+    const decodeManualBtn = document.getElementById("decodeManual");
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const classOptions = document.querySelectorAll('.class-option');
-        const classDisplay = document.getElementById('classDisplay');
-        const classSelector = document.getElementById('classSelector');
-        const adminLoginForm = document.getElementById('adminLoginForm');
-        const addAnnouncementForm = document.getElementById('addAnnouncementForm');
-        const loginFormContent = document.getElementById('loginFormContent');
-        const loginButtons = document.getElementById('loginButtons');
-        const logoutButtons = document.getElementById('logoutButtons');
-        const adminModalTitle = document.getElementById('adminModalTitle');
-        const adminIndicator = document.getElementById('adminIndicator');
+    let stream = null;
+    let scanning = false;
 
-        // Yönetici bilgileri
-        const ADMIN_CREDENTIALS = {
-            username: "admin",
-            password: "sdal2025"
-        };
+    function mod10(n) {
+        return ((n % 10) + 10) % 10;
+    }
 
-        // Klavye kısayolları
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+Shift+A - Yönetici girişi/çıkışı
-            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-                e.preventDefault();
-                if (isAdminLoggedIn) {
-                    // Çıkış yapma modalını göster
-                    showLogoutModal();
-                } else {
-                    // Giriş yapma modalını göster
-                    openAdminModal();
-                }
-            }
+    // çözme kuralları (ters işlemler) - DEĞİŞMEDİ
+    function decodeNumber(sixStr) {
+        if (!/^\d{6}$/.test(sixStr)) throw new Error("6 haneli sayı girilmelidir!");
+        const d = sixStr.split("").map(n => parseInt(n, 10));
+        const o = [];
 
-            // Ctrl+Shift+D - Duyuru ekleme (sadece giriş yapılmışsa)
-            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
-                e.preventDefault();
-                if (isAdminLoggedIn) {
-                    openAddModal();
-                } else {
-                    showNotification('Önce yönetici girişi yapmalısınız!', 'error');
-                }
-            }
+        o[0] = mod10(d[0] - 7);             // 1. rakam: -7 mod10
+        o[1] = mod10(d[1] * 7);             // 2. rakam: ×7 mod10
+        o[2] = mod10(d[2] + 2);             // 3. rakam: +2 mod10
+        o[3] = mod10(d[3] - 9);             // 4. rakam: -9 mod10
 
-            // Ctrl+Shift+X - Tüm duyuruları temizleme (sadece giriş yapılmışsa)
-            if (e.ctrlKey && e.shiftKey && e.key === 'X') {
-                e.preventDefault();
-                if (isAdminLoggedIn) {
-                    openClearModal();
-                } else {
-                    showNotification('Önce yönetici girişi yapmalısınız!', 'error');
-                }
-            }
-        });
+        // 5. rakam: /2 (tekse hata ver)
+        if (d[4] % 2 !== 0) throw new Error(`5. rakam (${d[4]}) tek! /2 uygulanamaz.`);
+        o[4] = d[4] / 2;
 
-        // Sınıf gösterimine tıklama (sadece admin girişi yapılmışsa)
-        classDisplay.addEventListener('click', function() {
-            if (isAdminLoggedIn) {
-                classSelector.style.display = 'flex';
-                classDisplay.style.display = 'none';
-            }
-        });
+        o[5] = mod10(d[5] + 5);             // 6. rakam: +5 mod10
+        return o.join("");
+    }
 
-        // Sınıf seçimi
-        classOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Aktif sınıfı güncelle
-                classOptions.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
+    function showResult(decoded, original) {
+        resultEl.textContent = decoded;
+        errorEl.textContent = "";
+        qrHint.textContent = `${original} → ${decoded}`;
+    }
 
-                currentClass = this.getAttribute('data-class');
-                classDisplay.textContent = this.textContent;
-                localStorage.setItem('selectedClass', currentClass);
+    function showError(msg) {
+        resultEl.textContent = "—";
+        errorEl.textContent = "❌ " + msg;
+    }
 
-                // Seçiciyi gizle, gösterimi göster
-                classSelector.style.display = 'none';
-                classDisplay.style.display = 'block';
-
-                loadAnnouncements();
-
-                // Otomatik yenilemeyi başlat
-                startAutoRefresh();
+    async function startCamera() {
+        if (scanning) return;
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "environment" },
+                audio: false
             });
-        });
+            video.srcObject = stream;
+            await video.play();
+            scanning = true;
+            tick();
+            qrHint.textContent = "Kamera açık, QR kodu göster.";
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+        } catch (err) {
+            showError("Kamera başlatılamadı: " + err.message);
+        }
+    }
 
-        // Yönetici giriş formu
-        adminLoginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+    function stopCamera() {
+        scanning = false;
+        if (stream) {
+            stream.getTracks().forEach(t => t.stop());
+            stream = null;
+        }
+        video.srcObject = null;
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        qrHint.textContent = "QR kodu kameraya göster veya fotoğraf yükle.";
+    }
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                // Giriş başarılı
-                loginSuccess();
-            } else {
-                showNotification('Hatalı kullanıcı adı veya şifre!', 'error');
+    function tick() {
+        if (!scanning) return;
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(img.data, img.width, img.height, { inversionAttempts: "attemptBoth" });
+            if (code) {
+                const data = code.data.trim();
+                const found = data.match(/(\d{6})/);
+                if (found) {
+                    try {
+                        const decoded = decodeNumber(found[1]);
+                        showResult(decoded, found[1]);
+                        stopCamera();
+                    } catch (err) {
+                        showError(err.message);
+                        stopCamera();
+                    }
+                    return;
+                }
             }
-        });
+        }
+        requestAnimationFrame(tick);
+    }
 
-        // Duyuru ekleme formu
-        addAnnouncementForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const targetClass = document.getElementById('targetClass').value;
-            const authorPosition = document.getElementById('authorPosition').value;
-            const authorName = document.getElementById('authorName').value;
-            const title = document.getElementById('announcementTitle').value;
-            const text = document.getElementById('announcementText').value;
-
-            if (!authorName.trim() || !title.trim() || !text.trim()) {
-                showNotification('Lütfen tüm alanları doldurun!', 'error');
-                return;
-            }
-
-            // Yeni duyuru oluştur
-            const newAnnouncement = {
-                id: Date.now(),
-                class: targetClass,
-                position: authorPosition,
-                author: authorName,
-                title: title,
-                text: text,
-                date: new Date().toLocaleString('tr-TR')
+    // 📸 Fotoğraf yükleyerek çözme
+    fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function() {
+            const img = new Image();
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+                if (code) {
+                    const data = code.data.trim();
+                    const found = data.match(/(\d{6})/);
+                    if (found) {
+                        try {
+                            const decoded = decodeNumber(found[1]);
+                            showResult(decoded, found[1]);
+                        } catch (err) {
+                            showError(err.message);
+                        }
+                    } else {
+                        showError("QR içinde geçerli 6 haneli sayı yok.");
+                    }
+                } else {
+                    showError("QR bulunamadı.");
+                }
             };
-
-            // Duyuruyu kaydet
-            saveAnnouncement(newAnnouncement);
-
-            // Formu temizle
-            document.getElementById('authorName').value = '';
-            document.getElementById('announcementTitle').value = '';
-            document.getElementById('announcementText').value = '';
-
-            closeAddModal();
-            showNotification('Duyurunuz başarıyla yayınlandı!');
-
-            // Eğer kullanıcı duyurunun hedef sınıfındaysa, duyuruları yenile
-            if (targetClass === 'all' || targetClass === currentClass) {
-                loadAnnouncements();
-            }
-        });
-
-        // Sayfa yüklendiğinde önceki sınıf seçimini yükle
-        const savedClass = localStorage.getItem('selectedClass');
-        if (savedClass) {
-            currentClass = savedClass;
-            classDisplay.textContent = getClassName(savedClass).replace(' Sınıfı', '');
-            classOptions.forEach(opt => {
-                if (opt.getAttribute('data-class') === savedClass) {
-                    opt.classList.add('active');
-                } else {
-                    opt.classList.remove('active');
-                }
-            });
-        }
-
-        // Yönetici girişi kontrol et
-        if (localStorage.getItem('adminLoggedIn') === 'true') {
-            isAdminLoggedIn = true;
-            adminIndicator.style.display = 'block';
-        }
-
-        // İlk duyuruları yükle
-        loadAnnouncements();
-        startAutoRefresh();
-
-        // Modal dışına tıklayınca kapat
-        window.addEventListener('click', function(e) {
-            const adminModal = document.getElementById('adminLoginModal');
-            const addModal = document.getElementById('addAnnouncementModal');
-            const clearModal = document.getElementById('clearAllModal');
-
-            if (e.target === adminModal) {
-                closeAdminModal();
-            }
-
-            if (e.target === addModal) {
-                closeAddModal();
-            }
-
-            if (e.target === clearModal) {
-                closeClearModal();
-            }
-        });
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
     });
 
-    // Duyuruları yükle
-    function loadAnnouncements() {
-        const announcementsList = document.getElementById('announcementsList');
-
-        // Tüm duyuruları al
-        const allAnnouncements = JSON.parse(localStorage.getItem('schoolAnnouncements')) || [];
-
-        // Seçilen sınıfa uygun duyuruları filtrele
-        const filteredAnnouncements = allAnnouncements.filter(announcement =>
-            announcement.class === 'all' || announcement.class === currentClass
-        );
-
-        // Tarihe göre sırala (yeniden eskiye)
-        filteredAnnouncements.sort((a, b) => b.id - a.id);
-
-        // Duyuruları listele
-        if (filteredAnnouncements.length === 0) {
-            announcementsList.innerHTML = `<div class="no-announcements">${getClassName(currentClass)} sınıfına ait duyuru bulunmamaktadır</div>`;
-        } else {
-            announcementsList.innerHTML = '';
-
-            filteredAnnouncements.forEach(announcement => {
-                const announcementCard = document.createElement('div');
-                announcementCard.className = 'announcement-card';
-
-                let deleteButton = '';
-                if (isAdminLoggedIn) {
-                    deleteButton = `<button class="delete-announcement" onclick="deleteAnnouncement(${announcement.id})">×</button>`;
-                }
-
-                announcementCard.innerHTML = `
-                        ${deleteButton}
-                        <div class="announcement-header">
-                            <span class="announcement-class">${getClassName(announcement.class)}</span>
-                            <span>${announcement.date}</span>
-                        </div>
-                        <div class="announcement-title">${announcement.title}</div>
-                        <div class="announcement-content">${announcement.text}</div>
-                        <div class="announcement-footer">
-                            <span class="announcement-author">${announcement.position} - ${announcement.author}</span>
-                        </div>
-                    `;
-
-                announcementsList.appendChild(announcementCard);
-            });
+    // ✏️ Manuel girişle çözme
+    decodeManualBtn.addEventListener("click", () => {
+        const val = manualInput.value.trim();
+        try {
+            const decoded = decodeNumber(val);
+            showResult(decoded, val);
+        } catch (err) {
+            showError(err.message);
         }
+    });
 
-        // Yeni duyuru kontrolü
-        checkForNewAnnouncements(filteredAnnouncements.length);
-    }
-
-    // Duyuru silme
-    function deleteAnnouncement(id) {
-        if (confirm('Bu duyuruyu silmek istediğinizden emin misiniz?')) {
-            const allAnnouncements = JSON.parse(localStorage.getItem('schoolAnnouncements')) || [];
-            const updatedAnnouncements = allAnnouncements.filter(announcement => announcement.id !== id);
-            localStorage.setItem('schoolAnnouncements', JSON.stringify(updatedAnnouncements));
-
-            showNotification('Duyuru başarıyla silindi!');
-            loadAnnouncements();
+    // Enter tuşu ile manuel deşifre
+    manualInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            decodeManualBtn.click();
         }
-    }
+    });
 
-    // Tüm duyuruları temizle
-    function clearAllAnnouncements() {
-        localStorage.setItem('schoolAnnouncements', JSON.stringify([]));
-        closeClearModal();
-        showNotification('Tüm duyurular başarıyla temizlendi!');
-        loadAnnouncements();
-    }
-
-    // Sınıf adını getir
-    function getClassName(classCode) {
-        const classNames = {
-            'all': 'Tüm Sınıflar',
-            '9a': '9-A Sınıfı',
-            '9b': '9-B Sınıfı',
-            '9c': '9-C Sınıfı',
-            '10a': '10-A Sınıfı',
-            '10b': '10-B Sınıfı',
-            '10c': '10-C Sınıfı',
-            '11a': '11-A Sınıfı',
-            '11b': '11-B Sınıfı',
-            '11c': '11-C Sınıfı',
-            '12a': '12-A Sınıfı',
-            '12b': '12-B Sınıfı',
-            '12c': '12-C Sınıfı'
-        };
-
-        return classNames[classCode] || classCode;
-    }
-
-    // Duyuruyu kaydet
-    function saveAnnouncement(announcement) {
-        const savedAnnouncements = JSON.parse(localStorage.getItem('schoolAnnouncements')) || [];
-        savedAnnouncements.push(announcement);
-        localStorage.setItem('schoolAnnouncements', JSON.stringify(savedAnnouncements));
-    }
-
-    // Modal işlevleri
-    function openAdminModal() {
-        document.getElementById('adminModalTitle').textContent = 'Yönetici Girişi';
-        document.getElementById('loginFormContent').style.display = 'block';
-        document.getElementById('loginButtons').style.display = 'flex';
-        document.getElementById('logoutButtons').style.display = 'none';
-        document.getElementById('adminLoginModal').style.display = 'flex';
-    }
-
-    function showLogoutModal() {
-        document.getElementById('adminModalTitle').textContent = 'Çıkış Yap';
-        document.getElementById('loginFormContent').style.display = 'none';
-        document.getElementById('loginButtons').style.display = 'none';
-        document.getElementById('logoutButtons').style.display = 'flex';
-        document.getElementById('adminLoginModal').style.display = 'flex';
-    }
-
-    function closeAdminModal() {
-        document.getElementById('adminLoginModal').style.display = 'none';
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-    }
-
-    function openAddModal() {
-        if (isAdminLoggedIn) {
-            document.getElementById('addAnnouncementModal').style.display = 'flex';
-        } else {
-            showNotification('Önce yönetici girişi yapmalısınız!', 'error');
-        }
-    }
-
-    function closeAddModal() {
-        document.getElementById('addAnnouncementModal').style.display = 'none';
-    }
-
-    function openClearModal() {
-        if (isAdminLoggedIn) {
-            document.getElementById('clearAllModal').style.display = 'flex';
-        } else {
-            showNotification('Önce yönetici girişi yapmalısınız!', 'error');
-        }
-    }
-
-    function closeClearModal() {
-        document.getElementById('clearAllModal').style.display = 'none';
-    }
-
-    // Başarılı giriş
-    function loginSuccess() {
-        isAdminLoggedIn = true;
-        localStorage.setItem('adminLoggedIn', 'true');
-        closeAdminModal();
-        document.getElementById('adminIndicator').style.display = 'block';
-        showNotification('Yönetici girişi başarılı! Artık Ctrl+Shift+D ile duyuru ekleyebilir ve Ctrl+Shift+X ile tüm duyuruları temizleyebilirsiniz.');
-        loadAnnouncements(); // Silme butonlarını güncelle
-    }
-
-    // Çıkış yap
-    function logout() {
-        isAdminLoggedIn = false;
-        localStorage.setItem('adminLoggedIn', 'false');
-        closeAdminModal();
-        document.getElementById('adminIndicator').style.display = 'none';
-        showNotification('Başarıyla çıkış yapıldı.');
-
-        // Sınıf seçiciyi gizle
-        document.getElementById('classSelector').style.display = 'none';
-        document.getElementById('classDisplay').style.display = 'block';
-
-        loadAnnouncements(); // Silme butonlarını kaldır
-    }
-
-    // Bildirim göster
-    function showNotification(message, type = 'success') {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.className = 'notification show';
-
-        if (type === 'error') {
-            notification.classList.add('error');
-        } else {
-            notification.classList.remove('error');
-        }
-
-        setTimeout(() => {
-            notification.className = 'notification';
-        }, 4000);
-    }
-
-    // Otomatik yenilemeyi başlat
-    function startAutoRefresh() {
-        // Önceki interval'i temizle
-        if (autoRefreshInterval) {
-            clearInterval(autoRefreshInterval);
-        }
-
-        // Yeni interval başlat (30 saniyede bir)
-        autoRefreshInterval = setInterval(() => {
-            loadAnnouncements();
-        }, 30000);
-    }
-
-    // Yeni duyuru kontrolü
-    function checkForNewAnnouncements(currentCount) {
-        if (lastAnnouncementCount > 0 && currentCount > lastAnnouncementCount) {
-            showNotification(`${currentCount - lastAnnouncementCount} yeni duyuru eklendi!`);
-        }
-        lastAnnouncementCount = currentCount;
-    }
+    startBtn.addEventListener("click", startCamera);
+    stopBtn.addEventListener("click", stopCamera);
+    window.addEventListener("beforeunload", stopCamera);
 </script>
 </body>
 </html>
