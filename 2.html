@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Açılıyor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('wallpaper.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
 
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 150px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .dots-container {
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dots {
+            animation: dotsAnimation 1.5s infinite;
+        }
+
+        .credits {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes dotsAnimation {
+            0% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo">
+</div>
+
+<div class="dots-container">
+    <span class="dots">...</span>
+</div>
+
+<div class="credits">
+    Geliştirici: Yiğit Eritici | Tester: Şehmus Bulut
+</div>
+
+<script>
+    // 5 saniye sonra main.html'ye yönlendirme
+    setTimeout(() => {
+        window.location.href = 'main.html';
+    }, 5000);
+</script>
+</body>
+</html>
