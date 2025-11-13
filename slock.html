@@ -3,25 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>🔐 Vertus Şifre Çözücü</title>
+    <title>Vertus Şifre Çözücü</title>
     <style>
         :root {
-            --primary: #0067c0;
-            --secondary: #0078d4;
-            --accent: #5c2d91;
-            --danger: #d13438;
-            --success: #107c10;
-            --bg-dark: #1e1e1e;
-            --bg-light: #f3f2f1;
-            --card-dark: rgba(32, 32, 32, 0.8);
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --danger: #dc2626;
+            --danger-dark: #b91c1c;
+            --bg-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --card-dark: rgba(30, 41, 59, 0.8);
             --card-light: rgba(255, 255, 255, 0.8);
-            --text-dark: #ffffff;
-            --text-light: #323130;
-            --text-muted-dark: #a19f9d;
-            --text-muted-light: #605e5c;
-            --border-radius: 8px;
+            --text-dark: #f1f5f9;
+            --text-light: #1e293b;
+            --text-muted-dark: #94a3b8;
+            --text-muted-light: #64748b;
+            --border-dark: rgba(255, 255, 255, 0.1);
+            --border-light: rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             --shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
@@ -33,10 +34,10 @@
         
         body {
             margin: 0;
-            background: var(--bg-light) url('light.png') no-repeat center center fixed;
+            background: var(--bg-light) url('light.jpg') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-light);
-            font-family: "Segoe UI", system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -59,18 +60,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(243, 242, 241, 0.85);
+            background: rgba(248, 250, 252, 0.9);
             z-index: -1;
             transition: var(--transition);
         }
         
         body.dark-mode::before {
-            background: rgba(30, 30, 30, 0.85);
+            background: rgba(15, 23, 42, 0.9);
         }
         
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 400px;
             z-index: 1;
         }
         
@@ -84,12 +85,16 @@
             position: absolute;
             top: 0;
             right: 0;
-            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             opacity: 0.7;
         }
         
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--primary);
@@ -97,7 +102,7 @@
         }
         
         body.dark-mode h1 {
-            color: var(--secondary);
+            color: var(--primary);
         }
         
         .subtitle {
@@ -112,12 +117,12 @@
         }
         
         .result-container {
-            margin: 30px 0;
+            margin: 25px 0;
             text-align: center;
         }
         
         .result-label {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted-light);
             margin-bottom: 12px;
             font-weight: 500;
@@ -130,48 +135,50 @@
         }
         
         .result {
-            font-size: 42px;
+            font-size: 36px;
             letter-spacing: 4px;
             font-weight: 600;
             color: var(--primary);
-            padding: 24px;
+            padding: 20px;
             border-radius: var(--border-radius);
-            background-color: var(--card-light);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            min-width: 250px;
-            backdrop-filter: blur(10px);
+            background: var(--card-light);
+            border: 1px solid var(--border-light);
+            min-width: 200px;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             box-shadow: var(--shadow);
             font-variant-numeric: tabular-nums;
             transition: var(--transition);
         }
         
         body.dark-mode .result {
-            background-color: var(--card-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--secondary);
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            color: var(--primary);
             box-shadow: var(--shadow-dark);
         }
         
         .section {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light);
             border-radius: var(--border-radius);
-            padding: 24px;
-            margin-bottom: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
             background: var(--card-light);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
         
         body.dark-mode .section {
             background: var(--card-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-dark);
             box-shadow: var(--shadow-dark);
         }
         
         .section h3 {
-            margin: 0 0 20px 0;
-            font-size: 18px;
+            margin: 0 0 16px 0;
+            font-size: 16px;
             color: var(--primary);
             text-align: center;
             display: flex;
@@ -182,7 +189,23 @@
         }
         
         body.dark-mode .section h3 {
-            color: var(--secondary);
+            color: var(--primary);
+        }
+        
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .camera-icon {
+            background-image: url('camera.png');
+        }
+        
+        .key-icon {
+            background-image: url('key.png');
         }
         
         video {
@@ -190,29 +213,28 @@
             border-radius: var(--border-radius);
             background: #000;
             margin-top: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light);
         }
         
         input[type="file"],
         input[type="text"] {
             margin-top: 16px;
             background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-light);
             color: var(--text-light);
-            padding: 14px 16px;
+            padding: 12px 16px;
             border-radius: var(--border-radius);
             width: 100%;
             font-size: 16px;
             backdrop-filter: blur(10px);
             transition: var(--transition);
-            font-family: "Segoe UI", system-ui, sans-serif;
+            font-family: inherit;
         }
         
         body.dark-mode input[type="file"],
         body.dark-mode input[type="text"] {
-            background: rgba(50, 50, 50, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border-dark);
             color: var(--text-dark);
         }
         
@@ -227,12 +249,12 @@
         input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(0, 103, 192, 0.2);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
         }
         
         body.dark-mode input:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
         
         button {
@@ -251,17 +273,13 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            font-family: "Segoe UI", system-ui, sans-serif;
+            font-family: inherit;
+            backdrop-filter: blur(10px);
         }
         
         button:hover {
-            background: var(--secondary);
+            background: var(--primary-dark);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 103, 192, 0.3);
-        }
-        
-        body.dark-mode button:hover {
-            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.4);
         }
         
         button:disabled {
@@ -275,40 +293,39 @@
         }
         
         .stop-btn:hover {
-            background: #b02a2e;
-            box-shadow: 0 4px 12px rgba(209, 52, 56, 0.3);
+            background: var(--danger-dark);
         }
         
         .hint {
             margin-top: 12px;
             color: var(--text-muted-light);
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
             background: rgba(255, 255, 255, 0.5);
             padding: 12px 16px;
             border-radius: var(--border-radius);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             line-height: 1.5;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
         }
         
         body.dark-mode .hint {
             color: var(--text-muted-dark);
-            background: rgba(50, 50, 50, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-dark);
         }
         
         .error {
             color: var(--danger);
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             text-align: center;
             margin-top: 16px;
-            background: rgba(209, 52, 56, 0.1);
-            padding: 14px 16px;
+            background: rgba(220, 38, 38, 0.1);
+            padding: 12px 16px;
             border-radius: var(--border-radius);
-            border: 1px solid rgba(209, 52, 56, 0.2);
-            backdrop-filter: blur(5px);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            backdrop-filter: blur(10px);
         }
         
         .button-group {
@@ -348,7 +365,7 @@
             padding: 14px 16px;
             border-radius: var(--border-radius);
             background: rgba(255, 255, 255, 0.7);
-            border: 1px dashed rgba(0, 0, 0, 0.3);
+            border: 1px dashed var(--border-light);
             color: var(--text-light);
             font-weight: 600;
             font-size: 15px;
@@ -369,14 +386,14 @@
         }
         
         body.dark-mode .file-input-button {
-            background: rgba(50, 50, 50, 0.7);
-            border: 1px dashed rgba(255, 255, 255, 0.3);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px dashed var(--border-dark);
             color: var(--text-dark);
         }
         
         body.dark-mode .file-input-button:hover {
-            background: rgba(50, 50, 50, 0.9);
-            border-color: var(--secondary);
+            background: rgba(30, 41, 59, 0.9);
+            border-color: var(--primary);
         }
         
         .theme-toggle {
@@ -396,29 +413,31 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
         
         .theme-toggle:hover {
             transform: scale(1.1);
-            background: var(--secondary);
+            background: var(--primary-dark);
         }
         
         @media (max-width: 480px) {
             .container {
-                padding: 0 10px;
+                padding: 0;
             }
             
             .section {
-                padding: 20px 16px;
+                padding: 16px;
+                margin-bottom: 12px;
             }
             
             .result {
-                font-size: 36px;
-                padding: 20px 16px;
+                font-size: 32px;
+                padding: 16px;
             }
             
             h1 {
-                font-size: 24px;
+                font-size: 22px;
             }
             
             .theme-toggle {
@@ -428,18 +447,13 @@
                 height: 40px;
             }
         }
-        
-        .mica-effect {
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="platform-indicator" id="platformIndicator">🌐</div>
-            <h1>🔐 Vertus Şifre Çözücü</h1>
+            <div class="platform-indicator" id="platformIndicator"></div>
+            <h1>Vertus Şifre Çözücü</h1>
             <p class="subtitle">QR kod veya manuel giriş ile şifreleri deşifre edin</p>
         </div>
 
@@ -450,21 +464,24 @@
         </div>
 
         <!-- QR Kod Okuma -->
-        <div class="section mica-effect">
-            <h3>📸 QR Kod ile Çöz</h3>
+        <div class="section">
+            <h3>
+                <span class="section-icon camera-icon"></span>
+                QR Kod ile Çöz
+            </h3>
             <video id="video" playsinline></video>
             <div class="button-group">
                 <button id="startBtn">
-                    <span>▶️</span> Kamerayı Aç
+                    Kamerayı Aç
                 </button>
                 <button id="stopBtn" class="stop-btn" disabled>
-                    <span>⏹️</span> Kamerayı Kapat
+                    Kamerayı Kapat
                 </button>
             </div>
             
             <div class="file-input-wrapper">
                 <div class="file-input-button">
-                    <span>📁</span> QR Kod Fotoğrafı Yükle
+                    QR Kod Fotoğrafı Yükle
                 </div>
                 <input type="file" id="fileInput" accept="image/*">
             </div>
@@ -473,18 +490,25 @@
         </div>
 
         <!-- Manuel Giriş -->
-        <div class="section mica-effect">
-            <h3>🔢 Manuel Giriş</h3>
+        <div class="section">
+            <h3>
+                <span class="section-icon key-icon"></span>
+                Manuel Giriş
+            </h3>
             <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı girin" maxlength="6">
             <button id="decodeManual">
-                <span>🔓</span> Deşifre Et
+                Deşifre Et
             </button>
         </div>
 
         <div id="error" class="error"></div>
     </div>
 
-    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <button class="theme-toggle" id="themeToggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/>
+        </svg>
+    </button>
 
     <canvas id="canvas"></canvas>
 
@@ -509,37 +533,37 @@
         let stream = null;
         let scanning = false;
 
-        // Platform detection
+        // Platform detection and icon setting
         function detectPlatform() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             
             // iOS detection
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                return { platform: 'iOS', icon: '🍎' };
+                return { platform: 'iOS', icon: 'apple.svg' };
             }
             
             // Android detection
             if (/android/i.test(userAgent)) {
-                return { platform: 'Android', icon: '🤖' };
+                return { platform: 'Android', icon: 'android.png' };
             }
             
             // Windows detection
             if (/windows/i.test(userAgent)) {
-                return { platform: 'Windows', icon: '🪟' };
+                return { platform: 'Windows', icon: 'windows.png' };
             }
             
             // macOS detection
             if (/macintosh|mac os x/i.test(userAgent)) {
-                return { platform: 'macOS', icon: '🍏' };
+                return { platform: 'macOS', icon: 'apple.svg' };
             }
             
             // Linux detection
             if (/linux/i.test(userAgent)) {
-                return { platform: 'Linux', icon: '🐧' };
+                return { platform: 'Linux', icon: 'linux.png' };
             }
             
             // Default
-            return { platform: 'Unknown', icon: '🌐' };
+            return { platform: 'Unknown', icon: '' };
         }
 
         // Theme detection and toggle
@@ -550,10 +574,10 @@
             
             if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
                 body.classList.add('dark-mode');
-                themeToggle.textContent = '☀️';
+                themeToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,7a5,5,0,1,0,5,5,5,5,0,0,0-5-5Z"/></svg>';
             } else {
                 body.classList.remove('dark-mode');
-                themeToggle.textContent = '🌙';
+                themeToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/></svg>';
             }
         }
 
@@ -561,11 +585,11 @@
         themeToggle.addEventListener('click', () => {
             if (body.classList.contains('dark-mode')) {
                 body.classList.remove('dark-mode');
-                themeToggle.textContent = '🌙';
+                themeToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/></svg>';
                 localStorage.setItem('theme', 'light');
             } else {
                 body.classList.add('dark-mode');
-                themeToggle.textContent = '☀️';
+                themeToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,7a5,5,0,1,0,5,5,5,5,0,0,0-5-5Z"/></svg>';
                 localStorage.setItem('theme', 'dark');
             }
         });
@@ -573,7 +597,9 @@
         // Platform detection on load
         window.addEventListener('DOMContentLoaded', () => {
             const platformInfo = detectPlatform();
-            platformIndicator.textContent = platformInfo.icon;
+            if (platformInfo.icon) {
+                platformIndicator.style.backgroundImage = `url('${platformInfo.icon}')`;
+            }
             console.log(`Platform detected: ${platformInfo.platform}`);
             
             initTheme();
@@ -589,16 +615,15 @@
             const d = sixStr.split("").map(n => parseInt(n, 10));
             const o = [];
 
-            o[0] = mod10(d[0] - 7);             // 1. rakam: -7 mod10
-            o[1] = mod10(d[1] * 7);             // 2. rakam: ×7 mod10
-            o[2] = mod10(d[2] + 2);             // 3. rakam: +2 mod10
-            o[3] = mod10(d[3] - 9);             // 4. rakam: -9 mod10
+            o[0] = mod10(d[0] - 7);
+            o[1] = mod10(d[1] * 7);
+            o[2] = mod10(d[2] + 2);
+            o[3] = mod10(d[3] - 9);
 
-            // 5. rakam: /2 (tekse hata ver)
             if (d[4] % 2 !== 0) throw new Error(`5. rakam (${d[4]}) tek! /2 uygulanamaz.`);
             o[4] = d[4] / 2;
 
-            o[5] = mod10(d[5] + 5);             // 6. rakam: +5 mod10
+            o[5] = mod10(d[5] + 5);
             return o.join("");
         }
 
@@ -610,7 +635,7 @@
 
         function showError(msg) {
             resultEl.textContent = "—";
-            errorEl.textContent = "❌ " + msg;
+            errorEl.textContent = msg;
         }
 
         async function startCamera() {
@@ -671,7 +696,7 @@
             requestAnimationFrame(tick);
         }
 
-        // 📸 Fotoğraf yükleyerek çözme
+        // Fotoğraf yükleyerek çözme
         fileInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -706,7 +731,7 @@
             reader.readAsDataURL(file);
         });
 
-        // ✏️ Manuel girişle çözme
+        // Manuel girişle çözme
         decodeManualBtn.addEventListener("click", () => {
             const val = manualInput.value.trim();
             try {
