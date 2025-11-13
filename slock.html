@@ -6,33 +6,50 @@
     <title>🔐 Vertus Şifre Çözücü</title>
     <style>
         :root {
-            --primary: #06b6d4;
-            --secondary: #7c3aed;
-            --danger: #ef4444;
-            --bg-dark: #0a1429;
-            --bg-card: rgba(14, 26, 51, 0.85);
-            --text-light: #e9f2fb;
-            --text-muted: #9eb0c8;
-            --border-radius: 16px;
-            --transition: all 0.3s ease;
+            --primary: #0067c0;
+            --secondary: #0078d4;
+            --accent: #5c2d91;
+            --danger: #d13438;
+            --success: #107c10;
+            --bg-dark: #1e1e1e;
+            --bg-light: #f3f2f1;
+            --card-dark: rgba(32, 32, 32, 0.8);
+            --card-light: rgba(255, 255, 255, 0.8);
+            --text-dark: #ffffff;
+            --text-light: #323130;
+            --text-muted-dark: #a19f9d;
+            --text-muted-light: #605e5c;
+            --border-radius: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
         body {
             margin: 0;
-            background: var(--bg-dark) url('wallpaperlock.png') no-repeat center center fixed;
+            background: var(--bg-light) url('light.png') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-light);
-            font-family: "Inter", system-ui, sans-serif;
+            font-family: "Segoe UI", system-ui, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
             position: relative;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode {
+            background: var(--bg-dark) url('dark.png') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-dark);
         }
         
         body::before {
@@ -42,35 +59,56 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 20, 40, 0.85);
+            background: rgba(243, 242, 241, 0.85);
             z-index: -1;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode::before {
+            background: rgba(30, 30, 30, 0.85);
         }
         
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             z-index: 1;
         }
         
         .header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .platform-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 24px;
+            opacity: 0.7;
         }
         
         h1 {
             font-size: 28px;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            font-weight: 700;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        body.dark-mode h1 {
+            color: var(--secondary);
         }
         
         .subtitle {
-            color: var(--text-muted);
-            font-size: 16px;
+            color: var(--text-muted-light);
+            font-size: 14px;
             margin-top: 0;
+            font-weight: 400;
+        }
+        
+        body.dark-mode .subtitle {
+            color: var(--text-muted-dark);
         }
         
         .result-container {
@@ -80,37 +118,55 @@
         
         .result-label {
             font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+            color: var(--text-muted-light);
+            margin-bottom: 12px;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        body.dark-mode .result-label {
+            color: var(--text-muted-dark);
         }
         
         .result {
             font-size: 42px;
             letter-spacing: 4px;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            padding: 25px;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 24px;
             border-radius: var(--border-radius);
-            background-color: var(--bg-card);
-            border: 2px solid var(--primary);
+            background-color: var(--card-light);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             min-width: 250px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            margin: 0 auto;
+            box-shadow: var(--shadow);
+            font-variant-numeric: tabular-nums;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .result {
+            background-color: var(--card-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            box-shadow: var(--shadow-dark);
         }
         
         .section {
-            border: 2px solid var(--primary);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 25px;
-            background: var(--bg-card);
+            padding: 24px;
+            margin-bottom: 20px;
+            background: var(--card-light);
             backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .section {
+            background: var(--card-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-dark);
         }
         
         .section h3 {
@@ -122,63 +178,90 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-weight: 600;
+        }
+        
+        body.dark-mode .section h3 {
+            color: var(--secondary);
         }
         
         video {
             width: 100%;
-            border-radius: 12px;
+            border-radius: var(--border-radius);
             background: #000;
             margin-top: 10px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         input[type="file"],
         input[type="text"] {
-            margin-top: 15px;
-            background: rgba(14, 26, 51, 0.9);
-            border: 2px solid var(--primary);
+            margin-top: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.2);
             color: var(--text-light);
-            padding: 14px;
-            border-radius: 12px;
+            padding: 14px 16px;
+            border-radius: var(--border-radius);
             width: 100%;
             font-size: 16px;
             backdrop-filter: blur(10px);
             transition: var(--transition);
+            font-family: "Segoe UI", system-ui, sans-serif;
+        }
+        
+        body.dark-mode input[type="file"],
+        body.dark-mode input[type="text"] {
+            background: rgba(50, 50, 50, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-dark);
         }
         
         input[type="text"]::placeholder {
-            color: var(--text-muted);
+            color: var(--text-muted-light);
+        }
+        
+        body.dark-mode input[type="text"]::placeholder {
+            color: var(--text-muted-dark);
         }
         
         input:focus {
             outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 103, 192, 0.2);
+        }
+        
+        body.dark-mode input:focus {
             border-color: var(--secondary);
-            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
         }
         
         button {
-            margin-top: 15px;
-            padding: 16px;
+            margin-top: 16px;
+            padding: 14px 16px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: #021224;
-            font-weight: 700;
-            font-size: 16px;
+            border-radius: var(--border-radius);
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
             width: 100%;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-family: "Segoe UI", system-ui, sans-serif;
         }
         
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
+            background: var(--secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 103, 192, 0.3);
+        }
+        
+        body.dark-mode button:hover {
+            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.4);
         }
         
         button:disabled {
@@ -188,36 +271,43 @@
         }
         
         .stop-btn {
-            background: linear-gradient(90deg, var(--danger), #dc2626);
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            background: var(--danger);
         }
         
         .stop-btn:hover {
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+            background: #b02a2e;
+            box-shadow: 0 4px 12px rgba(209, 52, 56, 0.3);
         }
         
         .hint {
             margin-top: 12px;
-            color: var(--text-muted);
+            color: var(--text-muted-light);
             font-size: 14px;
             text-align: center;
-            background: rgba(14, 26, 51, 0.7);
-            padding: 10px 15px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
             backdrop-filter: blur(5px);
             line-height: 1.5;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .hint {
+            color: var(--text-muted-dark);
+            background: rgba(50, 50, 50, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .error {
-            color: #ff6b6b;
-            font-size: 16px;
-            font-weight: 700;
+            color: var(--danger);
+            font-size: 15px;
+            font-weight: 600;
             text-align: center;
-            margin-top: 15px;
-            background: rgba(255, 107, 107, 0.1);
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #ff6b6b;
+            margin-top: 16px;
+            background: rgba(209, 52, 56, 0.1);
+            padding: 14px 16px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(209, 52, 56, 0.2);
             backdrop-filter: blur(5px);
         }
         
@@ -254,14 +344,14 @@
         }
         
         .file-input-button {
-            margin-top: 15px;
-            padding: 16px;
-            border-radius: 12px;
-            background: rgba(14, 26, 51, 0.9);
-            border: 2px dashed var(--primary);
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px dashed rgba(0, 0, 0, 0.3);
             color: var(--text-light);
             font-weight: 600;
-            font-size: 16px;
+            font-size: 15px;
             width: 100%;
             text-align: center;
             cursor: pointer;
@@ -270,11 +360,47 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            backdrop-filter: blur(10px);
         }
         
         .file-input-button:hover {
-            background: rgba(14, 26, 51, 1);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--primary);
+        }
+        
+        body.dark-mode .file-input-button {
+            background: rgba(50, 50, 50, 0.7);
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            color: var(--text-dark);
+        }
+        
+        body.dark-mode .file-input-button:hover {
+            background: rgba(50, 50, 50, 0.9);
             border-color: var(--secondary);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
         }
         
         @media (max-width: 480px) {
@@ -283,23 +409,36 @@
             }
             
             .section {
-                padding: 20px 15px;
+                padding: 20px 16px;
             }
             
             .result {
                 font-size: 36px;
-                padding: 20px 15px;
+                padding: 20px 16px;
             }
             
             h1 {
                 font-size: 24px;
             }
+            
+            .theme-toggle {
+                bottom: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        .mica-effect {
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="platform-indicator" id="platformIndicator">🌐</div>
             <h1>🔐 Vertus Şifre Çözücü</h1>
             <p class="subtitle">QR kod veya manuel giriş ile şifreleri deşifre edin</p>
         </div>
@@ -311,7 +450,7 @@
         </div>
 
         <!-- QR Kod Okuma -->
-        <div class="section">
+        <div class="section mica-effect">
             <h3>📸 QR Kod ile Çöz</h3>
             <video id="video" playsinline></video>
             <div class="button-group">
@@ -334,7 +473,7 @@
         </div>
 
         <!-- Manuel Giriş -->
-        <div class="section">
+        <div class="section mica-effect">
             <h3>🔢 Manuel Giriş</h3>
             <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı girin" maxlength="6">
             <button id="decodeManual">
@@ -345,10 +484,13 @@
         <div id="error" class="error"></div>
     </div>
 
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+
     <canvas id="canvas"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
     <script>
+        // DOM Elements
         const video = document.getElementById("video");
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
@@ -360,15 +502,88 @@
         const fileInput = document.getElementById("fileInput");
         const manualInput = document.getElementById("manualInput");
         const decodeManualBtn = document.getElementById("decodeManual");
+        const themeToggle = document.getElementById("themeToggle");
+        const platformIndicator = document.getElementById("platformIndicator");
+        const body = document.body;
 
         let stream = null;
         let scanning = false;
 
+        // Platform detection
+        function detectPlatform() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // iOS detection
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return { platform: 'iOS', icon: '🍎' };
+            }
+            
+            // Android detection
+            if (/android/i.test(userAgent)) {
+                return { platform: 'Android', icon: '🤖' };
+            }
+            
+            // Windows detection
+            if (/windows/i.test(userAgent)) {
+                return { platform: 'Windows', icon: '🪟' };
+            }
+            
+            // macOS detection
+            if (/macintosh|mac os x/i.test(userAgent)) {
+                return { platform: 'macOS', icon: '🍏' };
+            }
+            
+            // Linux detection
+            if (/linux/i.test(userAgent)) {
+                return { platform: 'Linux', icon: '🐧' };
+            }
+            
+            // Default
+            return { platform: 'Unknown', icon: '🌐' };
+        }
+
+        // Theme detection and toggle
+        function initTheme() {
+            // Check for saved theme preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+            } else {
+                body.classList.remove('dark-mode');
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Platform detection on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const platformInfo = detectPlatform();
+            platformIndicator.textContent = platformInfo.icon;
+            console.log(`Platform detected: ${platformInfo.platform}`);
+            
+            initTheme();
+        });
+
+        // Şifre çözme fonksiyonu - DEĞİŞMEDİ
         function mod10(n) {
             return ((n % 10) + 10) % 10;
         }
 
-        // çözme kuralları (ters işlemler) - DEĞİŞMEDİ
         function decodeNumber(sixStr) {
             if (!/^\d{6}$/.test(sixStr)) throw new Error("6 haneli sayı girilmelidir!");
             const d = sixStr.split("").map(n => parseInt(n, 10));
