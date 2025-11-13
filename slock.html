@@ -34,7 +34,7 @@
         
         body {
             margin: 0;
-            background: var(--bg-light) url('light.jpg') no-repeat center center fixed;
+            background: var(--bg-light) url('light.png') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-light);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -421,6 +421,29 @@
             background: var(--primary-dark);
         }
         
+        .advanced-section {
+            display: none;
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 16px;
+            background: var(--card-light);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .advanced-section {
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            box-shadow: var(--shadow-dark);
+        }
+        
+        .advanced-section.active {
+            display: block;
+        }
+        
         @media (max-width: 480px) {
             .container {
                 padding: 0;
@@ -479,26 +502,39 @@
                 </button>
             </div>
             
-            <div class="file-input-wrapper">
-                <div class="file-input-button">
-                    QR Kod Fotoğrafı Yükle
+            <button id="advancedToggle">
+                Gelişmiş Şifre Açma Yöntemleri
+            </button>
+            
+            <div id="advancedSection" class="advanced-section">
+                <!-- Manuel Giriş -->
+                <div class="section">
+                    <h3>
+                        <span class="section-icon key-icon"></span>
+                        Manuel Giriş
+                    </h3>
+                    <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı girin" maxlength="6">
+                    <button id="decodeManual">
+                        Deşifre Et
+                    </button>
                 </div>
-                <input type="file" id="fileInput" accept="image/*">
+                
+                <!-- QR Kod Fotoğraf Yükleme -->
+                <div class="section">
+                    <h3>
+                        <span class="section-icon camera-icon"></span>
+                        QR Kod Fotoğrafı Yükle
+                    </h3>
+                    <div class="file-input-wrapper">
+                        <div class="file-input-button">
+                            QR Kod Fotoğrafı Yükle
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*">
+                    </div>
+                </div>
             </div>
             
-            <div id="qrHint" class="hint">QR kodu kameraya gösterin veya fotoğraf yükleyin</div>
-        </div>
-
-        <!-- Manuel Giriş -->
-        <div class="section">
-            <h3>
-                <span class="section-icon key-icon"></span>
-                Manuel Giriş
-            </h3>
-            <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı girin" maxlength="6">
-            <button id="decodeManual">
-                Deşifre Et
-            </button>
+            <div id="qrHint" class="hint">Geliştirici : Yiğit Eritici</div>
         </div>
 
         <div id="error" class="error"></div>
@@ -528,6 +564,8 @@
         const decodeManualBtn = document.getElementById("decodeManual");
         const themeToggle = document.getElementById("themeToggle");
         const platformIndicator = document.getElementById("platformIndicator");
+        const advancedToggle = document.getElementById("advancedToggle");
+        const advancedSection = document.getElementById("advancedSection");
         const body = document.body;
 
         let stream = null;
@@ -605,7 +643,7 @@
             initTheme();
         });
 
-        // Şifre çözme fonksiyonu - DEĞİŞMEDİ
+        // Şifre çözme fonksiyonu
         function mod10(n) {
             return ((n % 10) + 10) % 10;
         }
@@ -630,7 +668,7 @@
         function showResult(decoded, original) {
             resultEl.textContent = decoded;
             errorEl.textContent = "";
-            qrHint.textContent = `${original} → ${decoded}`;
+            qrHint.textContent = `Geliştirici : Yiğit Eritici | ${original} → ${decoded}`;
         }
 
         function showError(msg) {
@@ -649,7 +687,7 @@
                 await video.play();
                 scanning = true;
                 tick();
-                qrHint.textContent = "Kamera açık, QR kodu gösterin.";
+                qrHint.textContent = "Kamera açık, QR kodu gösterin. | Geliştirici : Yiğit Eritici";
                 startBtn.disabled = true;
                 stopBtn.disabled = false;
             } catch (err) {
@@ -666,7 +704,7 @@
             video.srcObject = null;
             startBtn.disabled = false;
             stopBtn.disabled = true;
-            qrHint.textContent = "QR kodu kameraya gösterin veya fotoğraf yükleyin";
+            qrHint.textContent = "Geliştirici : Yiğit Eritici";
         }
 
         function tick() {
@@ -746,6 +784,16 @@
         manualInput.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
                 decodeManualBtn.click();
+            }
+        });
+
+        // Gelişmiş seçenekleri aç/kapat
+        advancedToggle.addEventListener("click", () => {
+            advancedSection.classList.toggle("active");
+            if (advancedSection.classList.contains("active")) {
+                advancedToggle.textContent = "Gelişmiş Seçenekleri Gizle";
+            } else {
+                advancedToggle.textContent = "Gelişmiş Şifre Açma Yöntemleri";
             }
         });
 
