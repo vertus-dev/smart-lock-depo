@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>🔐 Vertus Şifre Çözücü</title>
     <style>
+        :root {
+            --primary: #06b6d4;
+            --secondary: #7c3aed;
+            --danger: #ef4444;
+            --bg-dark: #0a1429;
+            --bg-card: rgba(14, 26, 51, 0.85);
+            --text-light: #e9f2fb;
+            --text-muted: #9eb0c8;
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             margin: 0;
-            background: #070f1f url('wallpaper.jpg') no-repeat center center fixed;
+            background: var(--bg-dark) url('wallpaperlock.png') no-repeat center center fixed;
             background-size: cover;
-            color: #e9f2fb;
+            color: var(--text-light);
             font-family: "Inter", system-ui, sans-serif;
             display: flex;
             flex-direction: column;
@@ -18,6 +34,7 @@
             padding: 20px;
             position: relative;
         }
+        
         body::before {
             content: '';
             position: fixed;
@@ -25,107 +42,172 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(7, 15, 31, 0.85);
+            background: rgba(10, 20, 40, 0.85);
             z-index: -1;
         }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 25px;
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            z-index: 1;
+        }
+        
+        .header {
             text-align: center;
-            background: linear-gradient(90deg, #06b6d4, #7c3aed);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 700;
         }
+        
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-top: 0;
+        }
+        
+        .result-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .result {
+            font-size: 42px;
+            letter-spacing: 4px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            background-color: var(--bg-card);
+            border: 2px solid var(--primary);
+            min-width: 250px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+        }
+        
+        .section {
+            border: 2px solid var(--primary);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section h3 {
+            margin: 0 0 20px 0;
+            font-size: 18px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
         video {
             width: 100%;
-            max-width: 400px;
-            border-radius: 16px;
+            border-radius: 12px;
             background: #000;
             margin-top: 10px;
-            border: 2px solid #06b6d4;
+            border: 2px solid var(--primary);
             box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
         }
+        
         input[type="file"],
         input[type="text"] {
-            margin-top: 12px;
+            margin-top: 15px;
             background: rgba(14, 26, 51, 0.9);
-            border: 2px solid #06b6d4;
-            color: #e9f2fb;
-            padding: 12px;
+            border: 2px solid var(--primary);
+            color: var(--text-light);
+            padding: 14px;
             border-radius: 12px;
-            width: 90%;
-            max-width: 350px;
+            width: 100%;
             font-size: 16px;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
+        
         input[type="text"]::placeholder {
-            color: #9eb0c8;
+            color: var(--text-muted);
         }
+        
         input:focus {
             outline: none;
-            border-color: #7c3aed;
+            border-color: var(--secondary);
             box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
         }
+        
         button {
-            margin-top: 12px;
-            padding: 14px 16px;
+            margin-top: 15px;
+            padding: 16px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(90deg, #06b6d4, #7c3aed);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: #021224;
             font-weight: 700;
             font-size: 16px;
-            width: 90%;
-            max-width: 350px;
+            width: 100%;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
+        
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
         }
+        
         button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
+        
         .stop-btn {
-            background: linear-gradient(90deg, #ef4444, #dc2626);
+            background: linear-gradient(90deg, var(--danger), #dc2626);
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
         }
+        
         .stop-btn:hover {
             box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
         }
-        .result {
-            margin: 30px 0;
-            font-size: 36px;
-            letter-spacing: 4px;
-            font-weight: 800;
-            text-align: center;
-            background: linear-gradient(90deg, #06b6d4, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 16px;
-            background-color: rgba(14, 26, 51, 0.9);
-            border: 2px solid #06b6d4;
-            min-width: 250px;
-            backdrop-filter: blur(10px);
-        }
+        
         .hint {
-            margin-top: 8px;
-            color: #9eb0c8;
+            margin-top: 12px;
+            color: var(--text-muted);
             font-size: 14px;
             text-align: center;
             background: rgba(14, 26, 51, 0.7);
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 8px;
             backdrop-filter: blur(5px);
+            line-height: 1.5;
         }
+        
         .error {
             color: #ff6b6b;
             font-size: 16px;
@@ -138,189 +220,223 @@
             border: 1px solid #ff6b6b;
             backdrop-filter: blur(5px);
         }
-        .section {
-            border: 2px solid #06b6d4;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            width: 95%;
-            max-width: 420px;
-            background: rgba(14, 26, 51, 0.85);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        .section h3 {
-            margin: 0 0 15px 0;
-            font-size: 18px;
-            color: #06b6d4;
-            text-align: center;
-        }
+        
         .button-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
-            max-width: 350px;
         }
+        
         .button-group button {
             flex: 1;
             margin-top: 12px;
         }
+        
         canvas {
             display: none;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input-button {
+            margin-top: 15px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(14, 26, 51, 0.9);
+            border: 2px dashed var(--primary);
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .file-input-button:hover {
+            background: rgba(14, 26, 51, 1);
+            border-color: var(--secondary);
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .section {
+                padding: 20px 15px;
+            }
+            
+            .result {
+                font-size: 36px;
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
-<h1>🔐 Vertus Şifre Çözücü</h1>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Vertus Şifre Çözücü</h1>
+            <p class="subtitle">QR kod veya manuel giriş ile şifreleri deşifre edin</p>
+        </div>
 
-<!-- Sonuç -->
-<div id="result" class="result">—</div>
+        <!-- Sonuç -->
+        <div class="result-container">
+            <div class="result-label">ÇÖZÜLMÜŞ ŞİFRE</div>
+            <div id="result" class="result">—</div>
+        </div>
 
-<!-- QR Kod Okuma -->
-<div class="section">
-    <h3>📸 QR Kod ile Çöz</h3>
-    <video id="video" playsinline></video>
-    <div class="button-group">
-        <button id="startBtn">Kamerayı Aç</button>
-        <button id="stopBtn" class="stop-btn" disabled>Kamerayı Kapat</button>
+        <!-- QR Kod Okuma -->
+        <div class="section">
+            <h3>📸 QR Kod ile Çöz</h3>
+            <video id="video" playsinline></video>
+            <div class="button-group">
+                <button id="startBtn">
+                    <span>▶️</span> Kamerayı Aç
+                </button>
+                <button id="stopBtn" class="stop-btn" disabled>
+                    <span>⏹️</span> Kamerayı Kapat
+                </button>
+            </div>
+            
+            <div class="file-input-wrapper">
+                <div class="file-input-button">
+                    <span>📁</span> QR Kod Fotoğrafı Yükle
+                </div>
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
+            
+            <div id="qrHint" class="hint">QR kodu kameraya gösterin veya fotoğraf yükleyin</div>
+        </div>
+
+        <!-- Manuel Giriş -->
+        <div class="section">
+            <h3>🔢 Manuel Giriş</h3>
+            <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı girin" maxlength="6">
+            <button id="decodeManual">
+                <span>🔓</span> Deşifre Et
+            </button>
+        </div>
+
+        <div id="error" class="error"></div>
     </div>
-    <input type="file" id="fileInput" accept="image/*">
-    <div id="qrHint" class="hint">QR kodu kameraya göster veya fotoğraf yükle.</div>
-</div>
 
-<!-- Manuel Giriş -->
-<div class="section">
-    <h3>🔢 Manuel Giriş</h3>
-    <input type="text" id="manualInput" placeholder="6 haneli şifreli sayı gir" maxlength="6">
-    <button id="decodeManual">Deşifre Et</button>
-</div>
+    <canvas id="canvas"></canvas>
 
-<div id="error" class="error"></div>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <script>
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const resultEl = document.getElementById("result");
+        const errorEl = document.getElementById("error");
+        const qrHint = document.getElementById("qrHint");
+        const startBtn = document.getElementById("startBtn");
+        const stopBtn = document.getElementById("stopBtn");
+        const fileInput = document.getElementById("fileInput");
+        const manualInput = document.getElementById("manualInput");
+        const decodeManualBtn = document.getElementById("decodeManual");
 
-<canvas id="canvas"></canvas>
+        let stream = null;
+        let scanning = false;
 
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
-<script>
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    const resultEl = document.getElementById("result");
-    const errorEl = document.getElementById("error");
-    const qrHint = document.getElementById("qrHint");
-    const startBtn = document.getElementById("startBtn");
-    const stopBtn = document.getElementById("stopBtn");
-    const fileInput = document.getElementById("fileInput");
-    const manualInput = document.getElementById("manualInput");
-    const decodeManualBtn = document.getElementById("decodeManual");
-
-    let stream = null;
-    let scanning = false;
-
-    function mod10(n) {
-        return ((n % 10) + 10) % 10;
-    }
-
-    // çözme kuralları (ters işlemler) - DEĞİŞMEDİ
-    function decodeNumber(sixStr) {
-        if (!/^\d{6}$/.test(sixStr)) throw new Error("6 haneli sayı girilmelidir!");
-        const d = sixStr.split("").map(n => parseInt(n, 10));
-        const o = [];
-
-        o[0] = mod10(d[0] - 7);             // 1. rakam: -7 mod10
-        o[1] = mod10(d[1] * 7);             // 2. rakam: ×7 mod10
-        o[2] = mod10(d[2] + 2);             // 3. rakam: +2 mod10
-        o[3] = mod10(d[3] - 9);             // 4. rakam: -9 mod10
-
-        // 5. rakam: /2 (tekse hata ver)
-        if (d[4] % 2 !== 0) throw new Error(`5. rakam (${d[4]}) tek! /2 uygulanamaz.`);
-        o[4] = d[4] / 2;
-
-        o[5] = mod10(d[5] + 5);             // 6. rakam: +5 mod10
-        return o.join("");
-    }
-
-    function showResult(decoded, original) {
-        resultEl.textContent = decoded;
-        errorEl.textContent = "";
-        qrHint.textContent = `${original} → ${decoded}`;
-    }
-
-    function showError(msg) {
-        resultEl.textContent = "—";
-        errorEl.textContent = "❌ " + msg;
-    }
-
-    async function startCamera() {
-        if (scanning) return;
-        try {
-            stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: "environment" },
-                audio: false
-            });
-            video.srcObject = stream;
-            await video.play();
-            scanning = true;
-            tick();
-            qrHint.textContent = "Kamera açık, QR kodu göster.";
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
-        } catch (err) {
-            showError("Kamera başlatılamadı: " + err.message);
+        function mod10(n) {
+            return ((n % 10) + 10) % 10;
         }
-    }
 
-    function stopCamera() {
-        scanning = false;
-        if (stream) {
-            stream.getTracks().forEach(t => t.stop());
-            stream = null;
+        // çözme kuralları (ters işlemler) - DEĞİŞMEDİ
+        function decodeNumber(sixStr) {
+            if (!/^\d{6}$/.test(sixStr)) throw new Error("6 haneli sayı girilmelidir!");
+            const d = sixStr.split("").map(n => parseInt(n, 10));
+            const o = [];
+
+            o[0] = mod10(d[0] - 7);             // 1. rakam: -7 mod10
+            o[1] = mod10(d[1] * 7);             // 2. rakam: ×7 mod10
+            o[2] = mod10(d[2] + 2);             // 3. rakam: +2 mod10
+            o[3] = mod10(d[3] - 9);             // 4. rakam: -9 mod10
+
+            // 5. rakam: /2 (tekse hata ver)
+            if (d[4] % 2 !== 0) throw new Error(`5. rakam (${d[4]}) tek! /2 uygulanamaz.`);
+            o[4] = d[4] / 2;
+
+            o[5] = mod10(d[5] + 5);             // 6. rakam: +5 mod10
+            return o.join("");
         }
-        video.srcObject = null;
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-        qrHint.textContent = "QR kodu kameraya göster veya fotoğraf yükle.";
-    }
 
-    function tick() {
-        if (!scanning) return;
-        if (video.readyState === video.HAVE_ENOUGH_DATA) {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const code = jsQR(img.data, img.width, img.height, { inversionAttempts: "attemptBoth" });
-            if (code) {
-                const data = code.data.trim();
-                const found = data.match(/(\d{6})/);
-                if (found) {
-                    try {
-                        const decoded = decodeNumber(found[1]);
-                        showResult(decoded, found[1]);
-                        stopCamera();
-                    } catch (err) {
-                        showError(err.message);
-                        stopCamera();
-                    }
-                    return;
-                }
+        function showResult(decoded, original) {
+            resultEl.textContent = decoded;
+            errorEl.textContent = "";
+            qrHint.textContent = `${original} → ${decoded}`;
+        }
+
+        function showError(msg) {
+            resultEl.textContent = "—";
+            errorEl.textContent = "❌ " + msg;
+        }
+
+        async function startCamera() {
+            if (scanning) return;
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "environment" },
+                    audio: false
+                });
+                video.srcObject = stream;
+                await video.play();
+                scanning = true;
+                tick();
+                qrHint.textContent = "Kamera açık, QR kodu gösterin.";
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            } catch (err) {
+                showError("Kamera başlatılamadı: " + err.message);
             }
         }
-        requestAnimationFrame(tick);
-    }
 
-    // 📸 Fotoğraf yükleyerek çözme
-    fileInput.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function() {
-            const img = new Image();
-            img.onload = function() {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const code = jsQR(imageData.data, imageData.width, imageData.height);
+        function stopCamera() {
+            scanning = false;
+            if (stream) {
+                stream.getTracks().forEach(t => t.stop());
+                stream = null;
+            }
+            video.srcObject = null;
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            qrHint.textContent = "QR kodu kameraya gösterin veya fotoğraf yükleyin";
+        }
+
+        function tick() {
+            if (!scanning) return;
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(img.data, img.width, img.height, { inversionAttempts: "attemptBoth" });
                 if (code) {
                     const data = code.data.trim();
                     const found = data.match(/(\d{6})/);
@@ -328,42 +444,74 @@
                         try {
                             const decoded = decodeNumber(found[1]);
                             showResult(decoded, found[1]);
+                            stopCamera();
                         } catch (err) {
                             showError(err.message);
+                            stopCamera();
+                        }
+                        return;
+                    }
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        // 📸 Fotoğraf yükleyerek çözme
+        fileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function() {
+                const img = new Image();
+                img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+                    if (code) {
+                        const data = code.data.trim();
+                        const found = data.match(/(\d{6})/);
+                        if (found) {
+                            try {
+                                const decoded = decodeNumber(found[1]);
+                                showResult(decoded, found[1]);
+                            } catch (err) {
+                                showError(err.message);
+                            }
+                        } else {
+                            showError("QR içinde geçerli 6 haneli sayı yok.");
                         }
                     } else {
-                        showError("QR içinde geçerli 6 haneli sayı yok.");
+                        showError("QR bulunamadı.");
                     }
-                } else {
-                    showError("QR bulunamadı.");
-                }
+                };
+                img.src = reader.result;
             };
-            img.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-    });
+            reader.readAsDataURL(file);
+        });
 
-    // ✏️ Manuel girişle çözme
-    decodeManualBtn.addEventListener("click", () => {
-        const val = manualInput.value.trim();
-        try {
-            const decoded = decodeNumber(val);
-            showResult(decoded, val);
-        } catch (err) {
-            showError(err.message);
-        }
-    });
+        // ✏️ Manuel girişle çözme
+        decodeManualBtn.addEventListener("click", () => {
+            const val = manualInput.value.trim();
+            try {
+                const decoded = decodeNumber(val);
+                showResult(decoded, val);
+            } catch (err) {
+                showError(err.message);
+            }
+        });
 
-    // Enter tuşu ile manuel deşifre
-    manualInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            decodeManualBtn.click();
-        }
-    });
+        // Enter tuşu ile manuel deşifre
+        manualInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                decodeManualBtn.click();
+            }
+        });
 
-    startBtn.addEventListener("click", startCamera);
-    stopBtn.addEventListener("click", stopCamera);
-    window.addEventListener("beforeunload", stopCamera);
-</script>
+        startBtn.addEventListener("click", startCamera);
+        stopBtn.addEventListener("click", stopCamera);
+        window.addEventListener("beforeunload", stopCamera);
+    </script>
 </body>
 </html>
